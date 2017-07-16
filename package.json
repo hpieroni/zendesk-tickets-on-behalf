@@ -2,10 +2,15 @@
   "name": "zendesk-tickets-on-behalf-server",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "cacheDirectories": ["node_modules", "client/node_modules"],
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node ./server/bin/www",
     "client": "node start-client.js",
+    "heroku-postbuild": "cd client/ && npm install && npm install && npm run build"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
