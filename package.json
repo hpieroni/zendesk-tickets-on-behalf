@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "node ./bin/www",
-    "client": "node start-client.js"
+    "server": "node ./server/bin/www",
+    "client": "node start-client.js",
   },
   "dependencies": {
     "body-parser": "~1.17.1",
