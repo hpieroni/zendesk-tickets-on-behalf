@@ -5,7 +5,10 @@
   "engines": {
     "node": ">=8.0.0"
   },
-  "cacheDirectories": ["node_modules", "client/node_modules"],
+  "cacheDirectories": [
+    "node_modules",
+    "client/node_modules"
+  ],
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node ./server/bin/www",
@@ -15,7 +18,9 @@
   "dependencies": {
     "body-parser": "~1.17.1",
     "debug": "~2.6.3",
-    "express": "~4.15.2"
+    "dotenv": "^4.0.0",
+    "express": "~4.15.2",
+    "zendesk-node-api": "^1.2.0"
   },
   "devDependencies": {
     "concurrently": "^3.5.0"

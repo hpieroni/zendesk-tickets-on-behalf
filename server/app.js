@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const index = require('./routes/index');
+const tickets = require('./routes/tickets');
 
 const app = express();
 
@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
 
-app.use('/api', index);
+app.use('/api/tickets', tickets);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
