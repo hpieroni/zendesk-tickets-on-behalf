@@ -1,11 +1,43 @@
 import React from 'react';
+import { Field } from 'redux-form';
 
-const NewTicketForm = ({ isLoading, ticket, error, createTicket }) =>
-  <div>
-    <button onClick={createTicket}>Create new ticket</button>
-    {isLoading ? <p>Loading...</p> : <div />}
-    {ticket ? <p>EXITO</p> : <div />}
-    {error ? <p>Error</p> : <div />}
-  </div>;
+const NewTicketForm = ({ handleSubmit, onSubmit, submitting, pristine }) =>
+  <form onSubmit={handleSubmit}>
+    <div>
+      <label>Requester Email</label>
+      <div>
+        <Field
+          name="email"
+          component="input"
+          type="email"
+          placeholder="Requester Email"
+        />
+      </div>
+    </div>
+    <div>
+      <label>Subject</label>
+      <div>
+        <Field
+          name="subject"
+          component="input"
+          type="textarea"
+          placeholder="Subject"
+        />
+      </div>
+    </div>
+    <div>
+      <label>Description</label>
+      <div>
+        <Field
+          name="description"
+          component="textarea"
+          placeholder="Description"
+        />
+      </div>
+    </div>
+    <button type="submit" disabled={pristine || submitting}>
+      Submit
+    </button>
+  </form>;
 
 export default NewTicketForm;

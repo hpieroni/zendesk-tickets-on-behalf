@@ -10,7 +10,17 @@ const zendesk = new Zendesk({
 });
 
 router.post('/', async (req, res) => {
-  const response = await zendesk.tickets.create(req.body);
+  const { email, subject, description } = req.body;
+  const response = await zendesk.tickets.create({
+    requester: {
+      name: email.split('@')[0],
+      email
+    },
+    subject,
+    comment: {
+      body: description
+    }
+  });
 
   if (response.error) {
     res.status(400).json(response);

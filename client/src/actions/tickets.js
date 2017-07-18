@@ -2,10 +2,9 @@ export const CREATE_TICKET_REQUEST = 'CREATE_TICKET_REQUEST';
 export const CREATE_TICKET_SUCCESS = 'CREATE_TICKET_SUCCESS';
 export const CREATE_TICKET_FAILED = 'CREATE_TICKET_FAILED';
 
-export function createTicket() {
+export function createTicket(newTicket) {
   return dispatch => {
     dispatch(createTicketRequest());
-
     //TODO: Needs Refactor
     const options = {
       method: 'POST',
@@ -13,15 +12,10 @@ export function createTicket() {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        subject: '123123',
-        comment: {
-          body: 'The smoke is very colorful.'
-        }
-      })
+      body: JSON.stringify(newTicket)
     };
 
-    fetch('api/tickets', options)
+    return fetch('api/tickets', options)
       .then(response => response.json().then(json => ({ json, response })))
       .then(({ json, response }) => {
         response.ok

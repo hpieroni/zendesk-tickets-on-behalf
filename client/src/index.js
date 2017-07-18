@@ -4,13 +4,13 @@ import { Provider } from 'react-redux';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store/configureStore';
-import NewTicketForm from './containers/NewTicketForm';
+import NewTicketPage from './containers/NewTicketPage';
 
 const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <NewTicketForm />
+    <NewTicketPage />
   </Provider>,
   document.getElementById('root')
 );
