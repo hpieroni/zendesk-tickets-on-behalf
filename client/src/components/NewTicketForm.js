@@ -2,8 +2,15 @@ import React from 'react';
 import { Field } from 'redux-form';
 import FieldGroup from './FieldGroup';
 import { Button } from 'react-bootstrap';
+import MarkdownFormControl from './MarkdownFormControl';
 
-const NewTicketForm = ({ handleSubmit, onSubmit, submitting, pristine }) =>
+const NewTicketForm = ({
+  handleSubmit,
+  onSubmit,
+  submitting,
+  pristine,
+  description
+}) =>
   <form onSubmit={handleSubmit}>
     <Field
       name="email"
@@ -17,11 +24,10 @@ const NewTicketForm = ({ handleSubmit, onSubmit, submitting, pristine }) =>
       type="text"
       label="Subject(*)"
     />
-    <Field
+    <MarkdownFormControl
       name="description"
-      component={FieldGroup}
       label="Description(*)"
-      componentClass="textarea"
+      text={description}
     />
     <Button
       type="submit"

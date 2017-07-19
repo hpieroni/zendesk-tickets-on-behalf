@@ -1,8 +1,10 @@
 const express = require('express');
 const Zendesk = require('zendesk-node-api');
+const showdown = require('showdown');
 const router = express.Router();
 const { ZENDESK_URL, ZENDESK_EMAIL, ZENDESK_TOKEN } = process.env;
 
+const converter = new showdown.Converter();
 const zendesk = new Zendesk({
   url: ZENDESK_URL,
   email: ZENDESK_EMAIL,
@@ -18,7 +20,7 @@ router.post('/', async (req, res) => {
     },
     subject,
     comment: {
-      body: description
+      html_body: converter.makeHtml(description)
     }
   });
 
