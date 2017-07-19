@@ -2,22 +2,12 @@ import React from 'react';
 import { Field } from 'redux-form';
 import { Tabs, Tab } from 'react-bootstrap';
 import ReactMarkdown from 'react-markdown';
+import markdownLogo from '../assets/markdown.svg';
 import FieldGroup from './FieldGroup';
 
 const markdownHelp = (
   <div>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="12"
-      viewBox="0 0 208 128"
-    >
-      <mask id="a">
-        <rect width="100%" height="100%" fill="#fff" />
-        <path d="M30 98v-68h20l20 25 20-25h20v68h-20v-39l-20 25-20-25v39zM155 98l-30-33h20v-35h20v35h20z" />
-      </mask>
-      <rect width="100%" height="100%" ry="15" mask="url(#a)" />
-    </svg>
+    <img src={markdownLogo} alt="markdown logo" />
     <a
       href="https://guides.github.com/features/mastering-markdown/"
       target="_new"

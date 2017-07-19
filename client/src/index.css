@@ -3,3 +3,21 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.btn.btn-primary {
+  background-color: #eb5424;
+  border-color: #e14615;
+}
+
+.btn.btn-primary:hover {
+  background-color: #ca3f12;
+  border-color: #a93510;
+}
+
+.has-error .form-control {
+  border-color: #ff3e00;
+}
+
+.has-error .control-label {
+  color: inherit;
+}

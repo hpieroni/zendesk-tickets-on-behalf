@@ -5,13 +5,16 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store/configureStore';
+import Layout from './components/Layout';
 import NewTicketPage from './containers/NewTicketPage';
 
 const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <NewTicketPage />
+    <Layout>
+      <NewTicketPage />
+    </Layout>
   </Provider>,
   document.getElementById('root')
 );
