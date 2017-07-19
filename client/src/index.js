@@ -1,20 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import 'bootstrap/dist/css/bootstrap.css';
-import './index.css';
+import { Route } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
 import registerServiceWorker from './registerServiceWorker';
-import configureStore from './store/configureStore';
+import store, { history } from './store';
 import Layout from './components/Layout';
 import NewTicketPage from './containers/NewTicketPage';
-
-const store = configureStore();
+import 'bootstrap/dist/css/bootstrap.css';
+import './index.css';
 
 ReactDOM.render(
   <Provider store={store}>
-    <Layout>
-      <NewTicketPage />
-    </Layout>
+    <ConnectedRouter history={history}>
+      <Layout>
+        <Route exact path="/" component={NewTicketPage} />
+      </Layout>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 );
