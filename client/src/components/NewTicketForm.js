@@ -11,7 +11,7 @@ const NewTicketForm = ({ handleSubmit, submitting, description }) =>
       name="email"
       component={FieldGroup}
       type="email"
-      label="Requester Email(*)"
+      label="Customer Email(*)"
       validate={[required, email]}
     />
     <Field
