@@ -3,17 +3,23 @@ import {
   FormGroup,
   FormControl,
   ControlLabel,
-  HelpBlock
+  HelpBlock,
+  Alert
 } from 'react-bootstrap';
+
+const getValidationState = meta =>
+  meta.error && meta.touched ? 'error' : null;
 
 const FieldGroup = ({
   label,
   help,
   type,
   input: { value, onChange, onBlur, name },
-  componentClass
+  componentClass,
+  meta,
+  validationState = getValidationState(meta)
 }) =>
-  <FormGroup controlId={name}>
+  <FormGroup controlId={name} validationState={validationState}>
     <ControlLabel>
       {label}
     </ControlLabel>
@@ -28,6 +34,12 @@ const FieldGroup = ({
     {help &&
       <HelpBlock>
         {help}
+      </HelpBlock>}
+    {validationState === 'error' &&
+      <HelpBlock>
+        <Alert bsStyle="danger">
+          {meta.error}
+        </Alert>
       </HelpBlock>}
   </FormGroup>;
 

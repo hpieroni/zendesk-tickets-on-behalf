@@ -27,7 +27,7 @@ const markdownHelp = (
   </div>
 );
 
-const MarkdownFormControl = ({ name, text = '', label }) =>
+const MarkdownFormControl = ({ name, text = '', label, validate }) =>
   <Tabs defaultActiveKey={1} id={`markdown-control-${name}`}>
     <Tab eventKey={1} title={label}>
       <Field
@@ -35,6 +35,7 @@ const MarkdownFormControl = ({ name, text = '', label }) =>
         component={FieldGroup}
         componentClass="textarea"
         help={markdownHelp}
+        validate={validate}
       />
     </Tab>
     <Tab eventKey={2} title="Preview" disabled={!text}>
