@@ -1,5 +1,6 @@
 import React from 'react';
-import { Navbar } from 'react-bootstrap';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import logo from '../assets/logo.svg';
 
 const Layout = ({ children }) =>
@@ -12,6 +13,11 @@ const Layout = ({ children }) =>
           </a>
         </Navbar.Brand>
       </Navbar.Header>
+      <Nav>
+        <LinkContainer exact to="/">
+          <NavItem eventKey={1}>Home</NavItem>
+        </LinkContainer>
+      </Nav>
     </Navbar>
     <div className="container">
       {children}

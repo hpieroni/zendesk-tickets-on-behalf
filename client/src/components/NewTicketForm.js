@@ -33,7 +33,7 @@ const NewTicketForm = ({ handleSubmit, submitting, description }) =>
       bsSize="large"
       disabled={submitting}
     >
-      Submit
+      SUBMIT
     </Button>
   </form>;
 

@@ -21,3 +21,7 @@ body {
 .has-error .control-label {
   color: inherit;
 }
+
+.jumbotron {
+  text-align: center;
+}
