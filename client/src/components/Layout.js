@@ -8,9 +8,9 @@ const Layout = ({ children }) =>
     <Navbar>
       <Navbar.Header>
         <Navbar.Brand>
-          <a href="/">
+          <LinkContainer exact to="/">
             <img src={logo} alt="logo" />
-          </a>
+          </LinkContainer>
         </Navbar.Brand>
       </Navbar.Header>
       <Nav>
