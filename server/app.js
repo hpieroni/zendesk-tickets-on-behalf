@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const jwt = require('express-jwt');
+const jwtConfig = require('./config/jwt');
 const tickets = require('./routes/tickets');
 
 const app = express();
@@ -12,7 +14,9 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
 
-app.use('/api/tickets', tickets);
+const authCheck = jwt(jwtConfig);
+
+app.use('/api/tickets', authCheck, tickets);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
