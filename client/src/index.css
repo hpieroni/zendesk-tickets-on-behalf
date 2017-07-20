@@ -25,3 +25,12 @@ body {
 .jumbotron {
   text-align: center;
 }
+
+#auth-credentials {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+#auth-credentials img {
+  margin-right: 5px;
+}

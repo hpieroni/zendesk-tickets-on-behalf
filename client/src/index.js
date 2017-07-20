@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import ReduxToastr from 'react-redux-toastr';
 import registerServiceWorker from './registerServiceWorker';
 import store, { history } from './store';
 import Layout from './components/Layout';
-import Home from './components/Home';
+import Home from './containers/Home';
 import NewTicketPage from './containers/NewTicketPage';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
@@ -23,8 +23,10 @@ ReactDOM.render(
       />
       <ConnectedRouter history={history}>
         <Layout>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/newTicket" component={NewTicketPage} />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/newTicket" component={NewTicketPage} />
+          </Switch>
         </Layout>
       </ConnectedRouter>
     </div>
