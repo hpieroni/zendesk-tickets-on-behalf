@@ -4,7 +4,12 @@ import { AUTH0_CLIENT_ID, AUTH0_DOMAIN } from '../services/constants';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 
-const lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
+const lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
+  autoclose: true,
+  auth: {
+    redirect: false
+  }
+});
 
 function loginSuccess(profile) {
   return {

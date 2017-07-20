@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import ReduxToastr from 'react-redux-toastr';
 import registerServiceWorker from './registerServiceWorker';
 import store, { history } from './store';
+import PrivateRoute from './containers/PrivateRoute';
 import Layout from './components/Layout';
 import Home from './containers/Home';
 import NewTicketPage from './containers/NewTicketPage';
@@ -25,7 +26,8 @@ ReactDOM.render(
         <Layout>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/newTicket" component={NewTicketPage} />
+            <PrivateRoute exact path="/newTicket" component={NewTicketPage} />
+            <Route render={() => <Redirect to="/" />} />
           </Switch>
         </Layout>
       </ConnectedRouter>
