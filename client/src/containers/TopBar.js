@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import TopBar from '../components/TopBar';
 
 const TopBarContainer = ({ isAuthenticated }) =>
@@ -12,4 +13,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, {})(TopBarContainer);
+export default withRouter(connect(mapStateToProps, {})(TopBarContainer));
