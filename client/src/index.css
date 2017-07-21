@@ -34,3 +34,8 @@ body {
 #auth-credentials img {
   margin-right: 5px;
 }
+
+.margin-table-btn {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}

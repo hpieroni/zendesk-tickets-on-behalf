@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, formValueSelector } from 'redux-form';
 import { createTicket } from '../actions/tickets';
-import NewTicketForm from '../components/NewTicketForm';
+import NewTicket from '../components/NewTicket';
 
-const NewTicketPage = props => <NewTicketForm {...props} />;
+const NewTicketContainer = props => <NewTicket {...props} />;
 
 const selector = formValueSelector('newTicket');
 
@@ -14,5 +14,5 @@ export default connect(
 )(
   reduxForm({
     form: 'newTicket'
-  })(NewTicketPage)
+  })(NewTicketContainer)
 );

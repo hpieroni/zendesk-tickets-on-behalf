@@ -9,7 +9,7 @@ import store, { history } from './store';
 import PrivateRoute from './containers/PrivateRoute';
 import Layout from './components/Layout';
 import Home from './containers/Home';
-import NewTicketPage from './containers/NewTicketPage';
+import NewTicket from './containers/NewTicket';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
@@ -26,7 +26,7 @@ ReactDOM.render(
         <Layout>
           <Switch>
             <Route exact path="/" component={Home} />
-            <PrivateRoute exact path="/newTicket" component={NewTicketPage} />
+            <PrivateRoute exact path="/newTicket" component={NewTicket} />
             <Route render={() => <Redirect to="/" />} />
           </Switch>
         </Layout>

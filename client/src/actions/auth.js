@@ -2,7 +2,7 @@ import Auth0Lock from 'auth0-lock';
 import { AUTH0_CLIENT_ID, AUTH0_DOMAIN } from '../services/constants';
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const LOGIN_FAILED = 'LOGIN_FAILED';
 
 const lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
   autoclose: true,
@@ -19,9 +19,9 @@ function loginSuccess(profile) {
   };
 }
 
-function loginError(error) {
+function loginFailed(error) {
   return {
-    type: LOGIN_ERROR,
+    type: LOGIN_FAILED,
     error
   };
 }
@@ -56,7 +56,7 @@ export function doAuthentication() {
       lock.getProfile(authResult.idToken, function(error, profile) {
         if (error) {
           // handle error
-          return dispatch(loginError(error));
+          return dispatch(loginFailed(error));
         }
 
         localStorage.setItem('profile', JSON.stringify(profile));

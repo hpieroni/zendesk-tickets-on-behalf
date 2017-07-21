@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_SUCCESS } from '../actions/auth';
+import { LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT_SUCCESS } from '../actions/auth';
 import jwtDecode from 'jwt-decode';
 
 const checkTokenExpiry = () => {
@@ -34,7 +34,7 @@ export default (
         profile: action.profile,
         error: ''
       };
-    case LOGIN_ERROR:
+    case LOGIN_FAILED:
       return {
         ...state,
         isAuthenticated: false,

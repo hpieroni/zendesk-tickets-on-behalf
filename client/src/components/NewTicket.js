@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import { required, email } from '../utils/validators';
 import MarkdownFormControl from './MarkdownFormControl';
 
-const NewTicketForm = ({ handleSubmit, submitting, description }) =>
+const NewTicket = ({ handleSubmit, submitting, description }) =>
   <form onSubmit={handleSubmit}>
     <Field
       name="email"
@@ -37,4 +37,4 @@ const NewTicketForm = ({ handleSubmit, submitting, description }) =>
     </Button>
   </form>;
 
-export default NewTicketForm;
+export default NewTicket;
