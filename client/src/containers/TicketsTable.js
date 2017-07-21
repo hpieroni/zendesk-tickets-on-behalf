@@ -13,6 +13,7 @@ class TicketsTableContainer extends Component {
       <TicketsTable
         tickets={this.props.data}
         isLoading={this.props.isLoading}
+        onRefresh={this.props.loadTickets}
       />
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 
 const TicketRow = ({ id, subject, requester_id, status }) =>
   <tr>
@@ -18,7 +18,7 @@ const TicketRow = ({ id, subject, requester_id, status }) =>
     </td>
   </tr>;
 
-const TicketsTable = ({ tickets, isLoading }) =>
+const TicketsTable = ({ tickets, isLoading, onRefresh }) =>
   <div>
     <Link
       className="btn btn-primary pull-right margin-table-btn"
@@ -51,6 +51,9 @@ const TicketsTable = ({ tickets, isLoading }) =>
           <i>No tickets to display</i>
         </p>}
     </div>
+    <Button bsStyle="default" bsSize="small" onClick={onRefresh}>
+      REFRESH
+    </Button>
   </div>;
 
 export default TicketsTable;
