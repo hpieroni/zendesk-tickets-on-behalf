@@ -13,7 +13,7 @@ const Auth = ({ isAuthenticated, profile, login, logout }) =>
     {!isAuthenticated
       ? <Navbar.Form pullRight>
           <Button bsStyle="primary" className="btn-margin" onClick={login}>
-            Log In
+            LOG IN
           </Button>
         </Navbar.Form>
       : <Nav pullRight>

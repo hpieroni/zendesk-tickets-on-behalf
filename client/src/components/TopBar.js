@@ -4,12 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import logo from '../assets/logo.svg';
 import Auth from '../containers/Auth';
 
-const TopBar = ({
-  isAuthenticated,
-  profile,
-  handleLoginClick,
-  handleLogoutClick
-}) =>
+const TopBar = ({ isAuthenticated }) =>
   <Navbar>
     <Navbar.Header>
       <Navbar.Brand>
@@ -20,11 +15,12 @@ const TopBar = ({
       <Navbar.Toggle />
     </Navbar.Header>
     <Navbar.Collapse>
-      <Nav>
-        <LinkContainer exact to="/">
-          <NavItem eventKey={1}>Home</NavItem>
-        </LinkContainer>
-      </Nav>
+      {isAuthenticated &&
+        <Nav>
+          <LinkContainer exact to="/">
+            <NavItem eventKey={1}>Home</NavItem>
+          </LinkContainer>
+        </Nav>}
       <Auth />
     </Navbar.Collapse>
   </Navbar>;

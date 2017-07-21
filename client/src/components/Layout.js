@@ -1,5 +1,5 @@
 import React from 'react';
-import TopBar from './TopBar';
+import TopBar from '../containers/TopBar';
 
 const Layout = ({ children }) =>
   <div>
