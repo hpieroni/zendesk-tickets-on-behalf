@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import logo from '../assets/logo.svg';
 import Auth from '../containers/Auth';
 
-const Menu = ({
+const TopBar = ({
   isAuthenticated,
   profile,
   handleLoginClick,
@@ -29,4 +29,4 @@ const Menu = ({
     </Navbar.Collapse>
   </Navbar>;
 
-export default Menu;
+export default TopBar;

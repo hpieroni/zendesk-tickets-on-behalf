@@ -1,9 +1,9 @@
 import React from 'react';
-import Menu from './Menu';
+import TopBar from './TopBar';
 
 const Layout = ({ children }) =>
   <div>
-    <Menu />
+    <TopBar />
     <div className="container">
       {children}
     </div>
