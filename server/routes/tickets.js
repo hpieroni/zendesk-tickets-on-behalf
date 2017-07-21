@@ -24,13 +24,22 @@ const validateNewTicketRequest = async req => {
   }
 };
 
+router.get('/', async (req, res) => {
+  try {
+    const tickets = await zendesk.findTickets(req.user.email);
+    res.status(200).json(tickets);
+  } catch (error) {
+    res.json({ description: error.message });
+  }
+});
+
 router.post('/', async (req, res) => {
   try {
     await validateNewTicketRequest(req);
 
     const { email, subject, description } = req.body;
     const submitter = await zendesk.findOrCreateSubmitter(req.user.email);
-    const response = await zendesk.createTicket({
+    const ticket = await zendesk.createTicket({
       submitter_id: submitter.id,
       requester: {
         name: utils.getEmailUsername(email),
@@ -42,7 +51,7 @@ router.post('/', async (req, res) => {
       }
     });
 
-    res.status(201).json(response);
+    res.status(201).json(ticket);
   } catch (error) {
     res.status(error.message === 'Validation failed' ? 400 : 500);
     res.json({ description: error.message });
