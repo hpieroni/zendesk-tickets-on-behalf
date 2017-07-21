@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const jwt = require('express-jwt');
 const jwtConfig = require('./config/jwt');
+const users = require('./routes/users');
 const tickets = require('./routes/tickets');
 
 const app = express();
@@ -18,6 +19,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const authCheck = jwt(jwtConfig);
 
+app.use('/api/users', users);
 app.use('/api/tickets', authCheck, tickets);
 
 // catch 404 and forward to error handler

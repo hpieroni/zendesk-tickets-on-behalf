@@ -40,10 +40,17 @@ const TicketsTable = ({ tickets, isLoading }) =>
         {tickets.map(ticket => <TicketRow key={ticket.id} {...ticket} />)}
       </tbody>
     </Table>
-    {isLoading &&
-      <p>
-        <i>Loading...</i>
-      </p>}
+    <div>
+      {isLoading &&
+        <p>
+          <i>Loading...</i>
+        </p>}
+      {!isLoading &&
+        !tickets.length &&
+        <p>
+          <i>No tickets to display</i>
+        </p>}
+    </div>
   </div>;
 
 export default TicketsTable;

@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
     const tickets = await zendesk.findTickets(req.user.email);
     res.status(200).json(tickets);
   } catch (error) {
-    res.json({ description: error.message });
+    res.status(500).json({ description: error.message });
   }
 });
 
@@ -38,9 +38,9 @@ router.post('/', async (req, res) => {
     await validateNewTicketRequest(req);
 
     const { email, subject, description } = req.body;
-    const submitter = await zendesk.findOrCreateSubmitter(req.user.email);
+    const user = await zendesk.findUser(req.user.email);
     const ticket = await zendesk.createTicket({
-      submitter_id: submitter.id,
+      submitter_id: user.id,
       requester: {
         name: utils.getEmailUsername(email),
         email

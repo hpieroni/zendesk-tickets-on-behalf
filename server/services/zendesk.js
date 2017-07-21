@@ -3,7 +3,7 @@ const zendeskConfig = require('../config/zendesk');
 const utils = require('./utils');
 const zendesk = new Zendesk(zendeskConfig);
 
-const handleResponse = fn => async (...args) => {
+const _handleCreation = fn => async (...args) => {
   const response = await fn(...args);
 
   if (response.error) {
@@ -13,40 +13,44 @@ const handleResponse = fn => async (...args) => {
   return response;
 };
 
-const findUser = handleResponse(async email => {
+const findUser = async email => {
   const users = await zendesk.search.list(`query=type:user email:${email}`);
   return users[0];
-});
+};
 
-const findOrCreateSubmitter = handleResponse(async email => {
+const createUser = _handleCreation(email =>
+  zendesk.users.create({
+    name: utils.getEmailUsername(email),
+    email,
+    role: 'agent',
+    verified: true
+  })
+);
+
+const registerUser = async email => {
   const user = await findUser(email);
 
-  return user
-    ? user
-    : zendesk.users.create({
-        name: utils.getEmailUsername(email),
-        email,
-        role: 'agent'
-      });
-});
+  if (!user) {
+    createUser(email);
+  }
+};
 
-const createTicket = newTicket =>
-  handleResponse(zendesk.tickets.create(newTicket));
+const createTicket = _handleCreation(newTicket =>
+  zendesk.tickets.create(newTicket)
+);
 
 // This zendesk library doesn't suppot pagination.
-const findTickets = handleResponse(async userEmail => {
+const findTickets = async userEmail => {
   const user = await findUser(userEmail);
 
   return user
-    ? zendesk.search.list(
-        `query=type:ticket submitter_id:${user.id}&sort_by=created_at&sort_order=desc`
-      )
+    ? zendesk.search.list(`query=type:ticket submitter_id:${user.id}`)
     : [];
-});
+};
 
 module.exports = {
   findUser,
+  registerUser,
   findTickets,
-  findOrCreateSubmitter,
   createTicket
 };

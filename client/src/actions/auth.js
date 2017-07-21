@@ -1,8 +1,13 @@
 import Auth0Lock from 'auth0-lock';
+import { toastr } from 'react-redux-toastr';
 import { AUTH0_CLIENT_ID, AUTH0_DOMAIN } from '../services/constants';
+import * as api from '../services/api';
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
+
+export const SHOW_REGISTERING_LOADING = 'SHOW_REGISTERING_LOADING';
+export const HIDE_REGISTERING_LOADING = 'HIDE_REGISTERING_LOADING';
 
 const lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
   autoclose: true,
@@ -11,6 +16,45 @@ const lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
     params: { scope: 'openid email' }
   }
 });
+
+function showRegisteringLoading() {
+  return {
+    type: SHOW_REGISTERING_LOADING
+  };
+}
+
+function hideRegisteringLoading() {
+  return {
+    type: HIDE_REGISTERING_LOADING
+  };
+}
+
+// This is used to create a zendesk agent user if not exists
+export function register(authResult) {
+  return dispatch => {
+    dispatch(showRegisteringLoading());
+    return api.registerUser(authResult.idToken).then(({ json, response }) => {
+      if (response.ok) {
+        lock.getProfile(authResult.idToken, function(error, profile) {
+          if (error) {
+            dispatch(loginFailed(error));
+            dispatch(hideRegisteringLoading());
+            return;
+          }
+
+          localStorage.setItem('profile', JSON.stringify(profile));
+          localStorage.setItem('id_token', authResult.idToken);
+          dispatch(loginSuccess(profile));
+          dispatch(hideRegisteringLoading());
+        });
+      } else {
+        dispatch(loginFailed(json));
+        dispatch(hideRegisteringLoading());
+        toastr.error('Error', json.description);
+      }
+    });
+  };
+}
 
 function loginSuccess(profile) {
   return {
@@ -52,17 +96,6 @@ export function logout() {
 // Listen to authenticated event and get the profile of the user
 export function doAuthentication() {
   return dispatch => {
-    lock.on('authenticated', function(authResult) {
-      lock.getProfile(authResult.idToken, function(error, profile) {
-        if (error) {
-          // handle error
-          return dispatch(loginFailed(error));
-        }
-
-        localStorage.setItem('profile', JSON.stringify(profile));
-        localStorage.setItem('id_token', authResult.idToken);
-        return dispatch(loginSuccess(profile));
-      });
-    });
+    lock.on('authenticated', authResult => dispatch(register(authResult)));
   };
 }
