@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
 const jwt = require('express-jwt');
 const jwtConfig = require('./config/jwt');
 const tickets = require('./routes/tickets');
@@ -8,6 +9,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressValidator());
 
 // Express only serves static assets in production
 if (process.env.NODE_ENV === 'production') {

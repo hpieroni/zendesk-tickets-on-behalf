@@ -1,30 +1,51 @@
 const express = require('express');
-const Zendesk = require('zendesk-node-api');
 const showdown = require('showdown');
-const router = express.Router();
-const zendeskConfig = require('../config/zendesk');
+const zendesk = require('../services/zendesk');
+const utils = require('../services/utils');
 
+const router = express.Router();
 const converter = new showdown.Converter();
-const zendesk = new Zendesk(zendeskConfig);
+const ticketSchema = {
+  email: {
+    notEmpty: true,
+    isEmail: {
+      errorMessage: 'Invalid Email'
+    }
+  },
+  subject: { notEmpty: true },
+  description: { notEmpty: true }
+};
+
+const validateNewTicketRequest = async req => {
+  req.checkBody(ticketSchema);
+  const error = await req.getValidationResult();
+  if (!error.isEmpty()) {
+    error.throw();
+  }
+};
 
 router.post('/', async (req, res) => {
-  const { email, subject, description } = req.body;
-  // TODO: Validate fields https://github.com/ctavan/express-validator
-  const response = await zendesk.tickets.create({
-    requester: {
-      name: email.split('@')[0],
-      email
-    },
-    subject,
-    comment: {
-      html_body: converter.makeHtml(description)
-    }
-  });
+  try {
+    await validateNewTicketRequest(req);
 
-  if (response.error) {
-    res.status(400).json(response);
-  } else {
+    const { email, subject, description } = req.body;
+    const submitter = await zendesk.findOrCreateSubmitter(req.user.email);
+    const response = await zendesk.createTicket({
+      submitter_id: submitter.id,
+      requester: {
+        name: utils.getEmailUsername(email),
+        email
+      },
+      subject,
+      comment: {
+        html_body: converter.makeHtml(description)
+      }
+    });
+
     res.status(201).json(response);
+  } catch (error) {
+    res.status(error.message === 'Validation failed' ? 400 : 500);
+    res.json({ description: error.message });
   }
 });
 
